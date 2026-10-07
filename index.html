@@ -292,6 +292,90 @@
       overflow: hidden;
     }
 
+    .pipeline {
+      display: grid;
+      grid-template-columns: minmax(280px, .8fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .pipeline-map {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(17,26,30,.68);
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .pipeline-step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid rgba(238,243,245,.1);
+      border-radius: var(--radius-sm);
+      background: rgba(238,243,245,.035);
+      transition: transform .28s ease, border-color .28s ease, background .28s ease;
+    }
+
+    .pipeline-step:hover {
+      transform: translateY(-3px);
+      border-color: rgba(240,193,95,.28);
+      background: rgba(238,243,245,.055);
+    }
+
+    .step-index {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(240,193,95,.34);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: .84rem;
+    }
+
+    .pipeline-step h3,
+    .product-card h3 {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .pipeline-step p,
+    .product-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .product-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: linear-gradient(180deg, rgba(238,243,245,.06), rgba(17,26,30,.64));
+      padding: 22px;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-tag {
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight: 780;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
     .tile {
       min-height: 240px;
       padding: 26px;
@@ -536,7 +620,7 @@
         grid-template-columns: 1fr;
       }
       .navlinks { display: none; }
-      .matrix, .timeline, .metric-grid {
+      .matrix, .timeline, .metric-grid, .pipeline, .product-grid {
         grid-template-columns: 1fr;
       }
       .tile, .phase {
@@ -571,6 +655,7 @@
       </a>
       <div class="navlinks">
         <a href="#strategy">Strategy</a>
+        <a href="#pipeline">Pipeline</a>
         <a href="#system">Creative system</a>
         <a href="#rollout">Rollout</a>
         <a href="#outcomes">Outcomes</a>
@@ -641,6 +726,73 @@
               <p>Every touchpoint reinforces one promise: Devtones turns Odoo into a practical system teams can trust every day.</p>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pipeline">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Process pipeline</div>
+            <h2>From product reality to an operating workflow.</h2>
+          </div>
+          <p>The workflow frames BEC Integrated product lines as operational stories, then maps each story into the Odoo records, handoffs, and reporting moments that a team would need to run with confidence.</p>
+        </div>
+        <div class="pipeline reveal" data-parallax="0.025">
+          <div class="pipeline-map">
+            <article class="pipeline-step">
+              <span class="step-index">01</span>
+              <div>
+                <h3>Product intake</h3>
+                <p>Capture product category, use case, property type, service scope, and decision owner.</p>
+              </div>
+            </article>
+            <article class="pipeline-step">
+              <span class="step-index">02</span>
+              <div>
+                <h3>Operational mapping</h3>
+                <p>Translate product requirements into CRM stages, quote inputs, inventory signals, and implementation tasks.</p>
+              </div>
+            </article>
+            <article class="pipeline-step">
+              <span class="step-index">03</span>
+              <div>
+                <h3>Campaign handoff</h3>
+                <p>Route the strongest proof points into web, sales enablement, email, and consultation follow-up.</p>
+              </div>
+            </article>
+            <article class="pipeline-step">
+              <span class="step-index">04</span>
+              <div>
+                <h3>Measurement loop</h3>
+                <p>Review which product stories create qualified demand, faster scoping, and cleaner consultation outcomes.</p>
+              </div>
+            </article>
+          </div>
+          <div class="product-grid">
+            <article class="product-card">
+              <span class="product-tag">Healthcare</span>
+              <div>
+                <h3>Wireless Nurse Call Systems</h3>
+                <p>Position around senior-care response, mobile visibility, and lower-installation-friction requirements.</p>
+              </div>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">Access</span>
+              <div>
+                <h3>Video Entry System</h3>
+                <p>Map quote flow, property profiles, remote access needs, door release, and two-way communication.</p>
+              </div>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">Care safety</span>
+              <div>
+                <h3>ResidentGuard System</h3>
+                <p>Frame emergency alerts, pendant and tag workflows, fall-risk moments, and care-team escalation.</p>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
