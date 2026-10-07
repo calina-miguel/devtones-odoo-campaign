@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Devtones Odoo Campaign</title>
+  <meta name="description" content="A campaign system for an Odoo transformation narrative by Devtones, covering strategy, creative system, funnel design, and launch outcomes.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23091013'/%3E%3Cpath d='M16 39c9 6 23 6 32 0' stroke='%23f0c15f' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M19 24h26M19 32h18' stroke='%23e8eef2' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #eef3f5;
+      --muted: #aab6bb;
+      --quiet: #738187;
+      --paper: #091013;
+      --panel: #111a1e;
+      --panel-2: #172327;
+      --line: rgba(238, 243, 245, .12);
+      --gold: #f0c15f;
+      --mint: #63d7b0;
+      --steel: #8ab1c4;
+      --ember: #e77058;
+      --radius: 18px;
+      --radius-sm: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, #000, transparent 75%);
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 22% 12%, rgba(240,193,95,.16), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(99,215,176,.12), transparent 26%),
+        linear-gradient(160deg, transparent 0%, rgba(23,35,39,.72) 60%, rgba(9,16,19,.9) 100%);
+      z-index: -3;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9,16,19,.82);
+      backdrop-filter: blur(18px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 760;
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid rgba(240,193,95,.5);
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, rgba(240,193,95,.22), rgba(99,215,176,.08));
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .navlinks a:hover { color: var(--ink); }
+
+    .hero {
+      min-height: calc(100svh - 72px);
+      padding: 72px 0 42px;
+      display: grid;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(330px, .7fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .kicker {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .76rem;
+      font-weight: 780;
+      padding: .5rem;
+    }
+
+    h1 {
+      margin: 18px 0 22px;
+      max-width: 655px;
+      font-size: clamp(2rem, 5.3vw, 7.2rem);
+      font-weight: 400;
+      line-height: .9;
+      letter-spacing: 0;
+      animation: heroTitle .9s cubic-bezier(.2, .7, .2, 1) both;
+    }
+
+    .lead {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.6;
+      animation: liftIn .8s cubic-bezier(.2,.7,.2,1) .14s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+      animation: liftIn .8s cubic-bezier(.2,.7,.2,1) .26s both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(238,243,245,.06);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: .95rem;
+      transition: transform .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .btn.primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #15120b;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(238,243,245,.1);
+      border-color: rgba(238,243,245,.24);
+      box-shadow: 0 14px 38px rgba(0,0,0,.24);
+    }
+
+    .btn.primary:hover {
+      background: #ffd77d;
+      border-color: #ffd77d;
+    }
+
+    .campaign-board {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(23,35,39,.9), rgba(9,16,19,.94));
+      padding: 24px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.32);
+      position: relative;
+      overflow: hidden;
+      animation: boardIn .9s cubic-bezier(.2,.7,.2,1) .18s both;
+      will-change: transform;
+    }
+
+    .campaign-board::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(240,193,95,.18);
+      border-radius: var(--radius-sm);
+      pointer-events: none;
+    }
+
+    .signal {
+      position: relative;
+      display: grid;
+      gap: 16px;
+    }
+
+    .mini-chart {
+      height: 210px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      align-items: end;
+      padding: 18px 0 0;
+    }
+
+    .bar {
+      min-height: 34px;
+      background: linear-gradient(to top, rgba(240,193,95,.95), rgba(99,215,176,.72));
+      transform-origin: bottom;
+      animation: rise .9s ease both;
+    }
+
+    .bar:nth-child(1) { height: 34%; animation-delay: .05s; }
+    .bar:nth-child(2) { height: 48%; animation-delay: .12s; }
+    .bar:nth-child(3) { height: 62%; animation-delay: .19s; }
+    .bar:nth-child(4) { height: 78%; animation-delay: .26s; }
+    .bar:nth-child(5) { height: 92%; animation-delay: .33s; }
+    @keyframes rise { from { transform: scaleY(.08); opacity: .35; } }
+
+    .board-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .board-row strong { color: var(--ink); display: block; font-size: 1.7rem; }
+
+    section { padding: 86px 0; border-top: 1px solid var(--line); }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .55fr) minmax(0, .85fr);
+      gap: 32px;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-head p, .copy {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1.02rem;
+      margin: 0;
+    }
+
+    .rollout-head {
+      align-items: center;
+    }
+
+    .rollout-head p {
+      max-width: 560px;
+      justify-self: end;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: rgba(17,26,30,.48);
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .tile {
+      min-height: 240px;
+      padding: 26px;
+      border-right: 1px solid var(--line);
+      background: rgba(238,243,245,.035);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .28s ease, background .28s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-4px);
+      background: rgba(238,243,245,.055);
+    }
+
+    .tile:nth-child(3n) { border-right: 0; }
+    .tile h3, .case h3, .phase h3 { margin: 0; font-size: 1.25rem; }
+    .tile p, .case p, .phase p { color: var(--muted); line-height: 1.65; margin: 14px 0 0; }
+    .number { color: var(--gold); font-weight: 800; font-size: .88rem; }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(320px, .6fr);
+      gap: 36px;
+      align-items: stretch;
+    }
+
+    .creative-system {
+      display: grid;
+      gap: 14px;
+    }
+
+    .case {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: rgba(17,26,30,.76);
+      transition: transform .28s ease, border-color .28s ease;
+    }
+
+    .case:hover {
+      transform: translateY(-3px);
+      border-color: rgba(240,193,95,.3);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .swatch {
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 10px;
+    }
+
+    .s1 { background: var(--gold); }
+    .s2 { background: var(--mint); }
+    .s3 { background: var(--steel); }
+    .s4 { background: var(--ember); }
+
+    .device {
+      border: 1px solid rgba(238,243,245,.18);
+      border-radius: var(--radius);
+      background: #0e1518;
+      padding: 18px;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      will-change: transform;
+    }
+
+    .screen {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background:
+        linear-gradient(135deg, rgba(240,193,95,.18), transparent 45%),
+        linear-gradient(180deg, rgba(238,243,245,.08), transparent);
+      min-height: 360px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen h3 {
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      line-height: .96;
+      margin: 0;
+    }
+
+    .chipline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border: 1px solid rgba(238,243,245,.16);
+      border-radius: 999px;
+      color: var(--muted);
+      padding: 7px 10px;
+      font-size: .78rem;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .phase {
+      padding: 24px;
+      border-right: 1px solid var(--line);
+      min-height: 270px;
+      transition: background .28s ease, transform .28s ease;
+    }
+
+    .phase:hover {
+      background: rgba(238,243,245,.045);
+      transform: translateY(-3px);
+    }
+
+    .phase:last-child { border-right: 0; }
+
+    .outcomes {
+      display: grid;
+      grid-template-columns: .72fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .score {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(238,243,245,.04);
+      padding: 28px;
+      display: grid;
+      align-content: center;
+    }
+
+    .score strong {
+      font-size: clamp(4rem, 10vw, 8rem);
+      line-height: .85;
+      color: var(--gold);
+    }
+
+    .score span { color: var(--muted); line-height: 1.6; margin-top: 18px; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      background: rgba(17,26,30,.72);
+      transition: transform .28s ease, border-color .28s ease;
+    }
+
+    .metric:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99,215,176,.25);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 2.2rem;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .metric span { color: var(--muted); line-height: 1.55; }
+
+    .quote {
+      padding: 72px 0 92px;
+      border-top: 1px solid var(--line);
+    }
+
+    blockquote {
+      margin: 0;
+      font-size: clamp(2rem, 5.5vw, 5.2rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0;
+      color: var(--quiet);
+      font-size: .9rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, calc(24px + var(--parallax-y, 0px)), 0) scale(.985);
+      transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1);
+      will-change: transform, opacity;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translate3d(0, var(--parallax-y, 0px), 0);
+    }
+
+    [data-parallax] {
+      --parallax-y: 0px;
+      transform: translate3d(0, var(--parallax-y), 0);
+      will-change: transform;
+      transition: transform .12s linear;
+    }
+
+    @keyframes liftIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes heroTitle {
+      from { opacity: 0; transform: translateY(24px) scale(.97); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes boardIn {
+      from { opacity: 0; transform: translateY(22px) rotateX(8deg); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 860px) {
+      .hero { padding-top: 48px; }
+      .hero-grid, .section-head, .split, .outcomes {
+        grid-template-columns: 1fr;
+      }
+      .navlinks { display: none; }
+      .matrix, .timeline, .metric-grid {
+        grid-template-columns: 1fr;
+      }
+      .tile, .phase {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        min-height: auto;
+      }
+      .tile:last-child, .phase:last-child { border-bottom: 0; }
+      .screen { min-height: 300px; }
+      .rollout-head p {
+        max-width: none;
+        justify-self: stretch;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+      [data-parallax] { transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Devtones Odoo campaign home">
+        <span class="mark" aria-hidden="true">D</span>
+        <span>Devtones × Odoo</span>
+      </a>
+      <div class="navlinks">
+        <a href="#strategy">Strategy</a>
+        <a href="#system">Creative system</a>
+        <a href="#rollout">Rollout</a>
+        <a href="#outcomes">Outcomes</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div data-parallax="0.08">
+          <div class="kicker">Campaign system</div>
+          <h1>From scattered operations to one confident growth engine.</h1>
+          <p class="lead">A composed campaign system for positioning Devtones as the partner that helps ambitious teams turn Odoo into a clear, measurable operating advantage.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#strategy">View campaign architecture</a>
+            <a class="btn" href="#outcomes">See launch signals</a>
+          </div>
+        </div>
+        <aside class="campaign-board" aria-label="Campaign signal board" data-parallax="-0.06">
+          <div class="signal">
+            <div class="kicker">Launch dashboard</div>
+            <div class="mini-chart" aria-hidden="true">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+            <div class="board-row">
+              <span><strong>4</strong> core audiences</span>
+              <span><strong>12</strong> content assets</span>
+              <span><strong>6 wk</strong> launch window</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="strategy">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Strategy</div>
+            <h2>A campaign built around operational clarity.</h2>
+          </div>
+          <p>The narrative moves away from software feature lists and into executive outcomes: faster decisions, fewer manual handoffs, cleaner reporting, and a smoother path from discovery to deployment.</p>
+        </div>
+        <div class="matrix reveal" data-parallax="0.035">
+          <article class="tile">
+            <span class="number">01</span>
+            <div>
+              <h3>Audience map</h3>
+              <p>Separate tracks for founders, operations leads, finance owners, and implementation sponsors, each with a concrete decision pressure.</p>
+            </div>
+          </article>
+          <article class="tile">
+            <span class="number">02</span>
+            <div>
+              <h3>Value ladder</h3>
+              <p>Awareness assets focus on disorder; mid-funnel pieces clarify migration paths; decision content proves governance, adoption, and ROI.</p>
+            </div>
+          </article>
+          <article class="tile">
+            <span class="number">03</span>
+            <div>
+              <h3>Message spine</h3>
+              <p>Every touchpoint reinforces one promise: Devtones turns Odoo into a practical system teams can trust every day.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="system">
+      <div class="wrap split">
+        <div class="creative-system reveal">
+          <div class="section-head" style="grid-template-columns: 1fr; margin-bottom: 10px;">
+            <div>
+              <div class="kicker">Creative system</div>
+              <h2>Measured, technical, and premium without feeling cold.</h2>
+            </div>
+          </div>
+          <article class="case">
+            <h3>Visual language</h3>
+            <p>Dark interface depth, warm signal highlights, and structured grid compositions evoke control rooms, implementation maps, and board-level confidence.</p>
+            <div class="swatches" aria-label="Campaign color palette">
+              <span class="swatch s1"></span>
+              <span class="swatch s2"></span>
+              <span class="swatch s3"></span>
+              <span class="swatch s4"></span>
+            </div>
+          </article>
+          <article class="case">
+            <h3>Content rhythm</h3>
+            <p>Short executive claims lead into evidence blocks, process diagrams, and decision prompts. The system is designed for quick scanning and deeper evaluation.</p>
+          </article>
+        </div>
+        <div class="device reveal" data-parallax="-0.04">
+          <div class="screen">
+            <div class="chipline">
+              <span class="chip">ERP alignment</span>
+              <span class="chip">CRM velocity</span>
+              <span class="chip">Inventory control</span>
+            </div>
+            <h3>One operating picture. Fewer disconnected decisions.</h3>
+            <p class="copy">A modular campaign concept that adapts cleanly across web, sales enablement, email, and executive briefing formats.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rollout">
+      <div class="wrap">
+        <div class="section-head rollout-head reveal">
+          <div>
+            <div class="kicker">Rollout</div>
+            <h2>Six weeks from strategic story to active demand.</h2>
+          </div>
+          <p>The launch plan balances precision and momentum: validate the strongest claims, package the proof, then use each channel for a clear job instead of repeating the same generic pitch.</p>
+        </div>
+        <div class="timeline reveal" data-parallax="0.03">
+          <article class="phase">
+            <span class="number">Week 1</span>
+            <h3>Positioning sprint</h3>
+            <p>Define audience objections, proof points, offer language, and campaign hierarchy.</p>
+          </article>
+          <article class="phase">
+            <span class="number">Weeks 2-3</span>
+            <h3>Asset build</h3>
+            <p>Create the flagship story page, conversion copy, sales deck, nurture sequence, and short-form campaign cuts.</p>
+          </article>
+          <article class="phase">
+            <span class="number">Weeks 4-5</span>
+            <h3>Channel launch</h3>
+            <p>Deploy paid, organic, email, and direct-sales assets with consistent measurement language.</p>
+          </article>
+          <article class="phase">
+            <span class="number">Week 6</span>
+            <h3>Optimization loop</h3>
+            <p>Refine messaging by segment, elevate high-signal content, and tighten handoff to consultations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="outcomes">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Outcomes</div>
+            <h2>Signals designed for leadership review.</h2>
+          </div>
+          <p>The measurement model connects campaign activity to business readiness: better-fit conversations, clearer funnel movement, and more confident decisions about implementation scope.</p>
+        </div>
+        <div class="outcomes reveal" data-parallax="-0.025">
+          <div class="score">
+            <strong>3.8×</strong>
+            <span>Projected lift in qualified consultation intent when campaign traffic reaches the decision-stage story page instead of a generic service page.</span>
+          </div>
+          <div class="metric-grid">
+            <div class="metric"><strong>42%</strong><span>Faster sales qualification through segment-specific intake language.</span></div>
+            <div class="metric"><strong>28%</strong><span>Higher nurture engagement from operational problem framing.</span></div>
+            <div class="metric"><strong>16</strong><span>Reusable message blocks for proposals, outreach, and executive briefs.</span></div>
+            <div class="metric"><strong>1</strong><span>Unified campaign spine across strategy, creative, channel, and measurement.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="quote">
+      <div class="wrap reveal">
+        <blockquote>Odoo is the platform. The campaign makes the operational advantage unmistakable.</blockquote>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">Devtones Odoo Campaign · Strategy, creative direction, rollout, and measurement system.</div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.14 });
+    document.querySelectorAll('.reveal').forEach((node) => observer.observe(node));
+
+    const parallaxItems = [...document.querySelectorAll('[data-parallax]')];
+    let ticking = false;
+
+    const updateParallax = () => {
+      const viewportCenter = window.innerHeight / 2;
+      parallaxItems.forEach((node) => {
+        const speed = Number(node.dataset.parallax);
+        const rect = node.getBoundingClientRect();
+        const distance = rect.top + rect.height / 2 - viewportCenter;
+        const offset = Math.max(-34, Math.min(34, distance * speed));
+        node.style.setProperty('--parallax-y', `${offset}px`);
+      });
+      ticking = false;
+    };
+
+    const requestParallax = () => {
+      if (!ticking && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    };
+
+    requestParallax();
+    window.addEventListener('scroll', requestParallax, { passive: true });
+    window.addEventListener('resize', requestParallax);
+  </script>
+</body>
+</html>
