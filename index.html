@@ -43,8 +43,10 @@
         linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
         linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
       background-size: 56px 56px;
+      background-position: 0 var(--grid-y, 0px);
       mask-image: linear-gradient(to bottom, #000, transparent 75%);
       z-index: -2;
+      will-change: background-position;
     }
 
     body::after {
@@ -131,7 +133,7 @@
     h1 {
       margin: 18px 0 22px;
       max-width: 655px;
-      font-size: clamp(2rem, 5.3vw, 7.2rem);
+      font-size: clamp(2rem, 5.0vw, 7.2rem);
       font-weight: 400;
       line-height: 1;
       letter-spacing: 0;
@@ -255,13 +257,19 @@
       grid-template-columns: minmax(0, .55fr) minmax(0, .85fr);
       gap: 32px;
       margin-bottom: 34px;
+      grid-auto-flow: row;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      justify-items: center;
     }
 
-    h2 {
+    .section-head h2 {
       margin: 8px 0 0;
-      font-size: clamp(2rem, 4vw, 4rem);
+      font-size: clamp(2rem, 5vw, 6rem);
       line-height: 1;
       letter-spacing: 0;
+      font-weight: 350;
     }
 
     .section-head p, .copy {
@@ -355,6 +363,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
+      align-content: start;
     }
 
     .product-card {
@@ -643,6 +652,7 @@
         scroll-behavior: auto !important;
       }
       [data-parallax] { transform: none !important; }
+      body::before { background-position: 0 0 !important; }
     }
   </style>
 </head>
@@ -917,6 +927,7 @@
 
     const updateParallax = () => {
       const viewportCenter = window.innerHeight / 2;
+      document.documentElement.style.setProperty('--grid-y', `${window.scrollY * -0.18}px`);
       parallaxItems.forEach((node) => {
         const speed = Number(node.dataset.parallax);
         const rect = node.getBoundingClientRect();
