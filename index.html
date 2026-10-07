@@ -387,6 +387,92 @@
       text-transform: uppercase;
     }
 
+    .practice-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(300px, .55fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .practice-panel,
+    .operations-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(17,26,30,.68);
+    }
+
+    .practice-panel {
+      padding: 28px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .practice-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .practice-step {
+      min-height: 155px;
+      border: 1px solid rgba(238,243,245,.1);
+      border-radius: var(--radius-sm);
+      background: rgba(238,243,245,.035);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .practice-step span {
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .practice-step h3,
+    .operations-card h3 {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .practice-step p,
+    .operations-card p,
+    .operations-list {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .practice-step p {
+      margin: 12px 0 0;
+    }
+
+    .operations-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+      background:
+        linear-gradient(145deg, rgba(240,193,95,.12), transparent 42%),
+        rgba(17,26,30,.7);
+    }
+
+    .operations-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .scenario-label {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .72rem;
+      font-weight: 780;
+    }
+
     .tile {
       min-height: 240px;
       padding: 26px;
@@ -631,7 +717,7 @@
         grid-template-columns: 1fr;
       }
       .navlinks { display: none; }
-      .matrix, .timeline, .metric-grid, .pipeline, .product-grid {
+      .matrix, .timeline, .metric-grid, .pipeline, .product-grid, .practice-layout, .practice-flow {
         grid-template-columns: 1fr;
       }
       .tile, .phase {
@@ -669,6 +755,7 @@
       <div class="navlinks">
         <a href="#strategy">Strategy</a>
         <a href="#pipeline">Pipeline</a>
+        <a href="#practice">Practice</a>
         <a href="#system">Creative system</a>
         <a href="#rollout">Rollout</a>
         <a href="#outcomes">Outcomes</a>
@@ -806,6 +893,68 @@
               </div>
             </article>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Practical setting</div>
+            <h2>How this works inside a real property operation.</h2>
+          </div>
+          <p>A practical deployment can start with a multi-tenant building or senior-care facility using BEC Integrated systems for entry, resident response, and care-team escalation.</p>
+        </div>
+        <div class="practice-layout reveal" data-parallax="-0.018">
+          <div class="practice-panel">
+            <div>
+              <div class="scenario-label">Example environment</div>
+              <p class="copy">A property team manages access control for residents and visitors, while care staff need reliable alert paths for urgent resident events. The campaign turns those needs into a clear operational model that sales, service, and implementation teams can follow.</p>
+            </div>
+            <div class="practice-flow">
+              <article class="practice-step">
+                <span>Request</span>
+                <div>
+                  <h3>Property inquiry</h3>
+                  <p>A manager requests pricing for video entry, resident safety, or nurse-call needs.</p>
+                </div>
+              </article>
+              <article class="practice-step">
+                <span>Scope</span>
+                <div>
+                  <h3>System fit</h3>
+                  <p>Unit count, entrances, staff roles, mobile access, and alert paths become structured Odoo fields.</p>
+                </div>
+              </article>
+              <article class="practice-step">
+                <span>Deploy</span>
+                <div>
+                  <h3>Implementation handoff</h3>
+                  <p>Quote, inventory, installation tasks, and service notes move through one visible workflow.</p>
+                </div>
+              </article>
+              <article class="practice-step">
+                <span>Improve</span>
+                <div>
+                  <h3>Service feedback</h3>
+                  <p>Common questions and field issues inform stronger content, training, and follow-up sequences.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <aside class="operations-card">
+            <div>
+              <div class="scenario-label">BEC Integrated context</div>
+              <h3>Residential security and senior-care response</h3>
+              <p>BEC Integrated references video entry systems for residential, commercial, apartment, condominium, gated community, and senior-care use cases.</p>
+            </div>
+            <ul class="operations-list">
+              <li>Video entry inquiries become quote and property-profile workflows.</li>
+              <li>ResidentGuard and nurse-call needs become care-response and escalation workflows.</li>
+              <li>Installation requirements become inventory, scheduling, and support workflows.</li>
+            </ul>
+          </aside>
         </div>
       </div>
     </section>
